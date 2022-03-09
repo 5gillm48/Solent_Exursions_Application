@@ -126,4 +126,37 @@ public class DataController {
              }
          }
      }
+     
+     public static void deleteRow(String routeName, String pick, String vehicleName){
+         Route route = new Route();
+         for(Route r : routes){
+             if(r.getRouteName().equals(routeName)){
+                 route = r;
+                 routes.remove(r);
+                 break;
+             }
+         }
+        ArrayList<PickUpPoints> pickUpPoints = route.getPickUpPoints();
+        PickUpPoints picks = new PickUpPoints();
+        for(PickUpPoints p : pickUpPoints){
+            if(p.getPickUpPointsName().equals(pick)){
+                picks = p;
+                pickUpPoints.remove(picks);
+                break;
+            }
+        }
+        ArrayList<Vehicle> vehicles = picks.getVehicles();
+        Vehicle ve = new Vehicle();
+        for(Vehicle v : vehicles){
+            if(v.getVehicleType().equals(vehicleName)){
+                ve = v;
+                vehicles.remove(ve);
+                break;
+            }
+        }
+        picks.setVehicles(vehicles);
+        pickUpPoints.add(picks);
+        route.setPickUpPoints(pickUpPoints);
+        routes.add(route);
+     }
 }
