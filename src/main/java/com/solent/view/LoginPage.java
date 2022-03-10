@@ -151,14 +151,13 @@ public class LoginPage extends javax.swing.JFrame {
            System.out.println(e);
            JOptionPane.showMessageDialog(null,e);
        }
-       
     }//GEN-LAST:event_adminLogin
 
     private void advisorLogin(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_advisorLogin
         try{
             String userName = textField2.getText();
         String password = jPasswordField1.getText();
-        if(userName.equals("1") && password.equals("1")){
+        if(userName.equals("advisor") && password.equals("advisor")){
             this.setVisible(false);
             new AdvisorView().setVisible(true);
         }else{

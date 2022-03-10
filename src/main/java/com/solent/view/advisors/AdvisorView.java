@@ -9,9 +9,16 @@ import com.solent.objects.PickUpPoints;
 import com.solent.objects.Route;
 import com.solent.objects.Vehicle;
 import com.solent.view.LoginPage;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Vector;
+import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 
 /**
  *
@@ -39,16 +46,16 @@ public class AdvisorView extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        book = new javax.swing.JButton();
+        view = new javax.swing.JButton();
         logout = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
+        export = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
-        jTextField1 = new javax.swing.JTextField();
+        routeName = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
-        jButton5 = new javax.swing.JButton();
+        PickUpPoint = new javax.swing.JTextField();
+        searchRoute = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
 
@@ -56,20 +63,25 @@ public class AdvisorView extends javax.swing.JFrame {
         setBackground(new java.awt.Color(255, 204, 204));
         setBounds(new java.awt.Rectangle(150, 120, 0, 0));
 
-        jButton1.setBackground(new java.awt.Color(51, 255, 255));
-        jButton1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(255, 51, 51));
-        jButton1.setText("Book ");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        book.setBackground(new java.awt.Color(51, 255, 255));
+        book.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        book.setForeground(new java.awt.Color(255, 51, 51));
+        book.setText("Book ");
+        book.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                bookTicket(evt);
             }
         });
 
-        jButton2.setBackground(new java.awt.Color(153, 255, 255));
-        jButton2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jButton2.setForeground(new java.awt.Color(255, 51, 51));
-        jButton2.setText("View");
+        view.setBackground(new java.awt.Color(153, 255, 255));
+        view.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        view.setForeground(new java.awt.Color(255, 51, 51));
+        view.setText("View");
+        view.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                view(evt);
+            }
+        });
 
         logout.setBackground(new java.awt.Color(102, 255, 255));
         logout.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -81,21 +93,26 @@ public class AdvisorView extends javax.swing.JFrame {
             }
         });
 
-        jButton4.setBackground(new java.awt.Color(153, 255, 255));
-        jButton4.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jButton4.setForeground(new java.awt.Color(255, 51, 51));
-        jButton4.setText("Export");
+        export.setBackground(new java.awt.Color(153, 255, 255));
+        export.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        export.setForeground(new java.awt.Color(255, 51, 51));
+        export.setText("Export");
+        export.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                exportActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(book, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(31, 31, 31)
-                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(view, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(export, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(logout, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -104,17 +121,17 @@ public class AdvisorView extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(book, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(view, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(logout, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(export, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
 
-        jTextField1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jTextField1.setToolTipText("Enter Route to Search");
+        routeName.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        routeName.setToolTipText("Enter Route to Search");
 
         jLabel1.setForeground(new java.awt.Color(255, 51, 51));
         jLabel1.setText("Enter Route name :");
@@ -122,14 +139,14 @@ public class AdvisorView extends javax.swing.JFrame {
         jLabel2.setForeground(new java.awt.Color(255, 0, 0));
         jLabel2.setText("Enter Pick Up Point :");
 
-        jTextField2.setToolTipText("Enter Pick Up Point");
+        PickUpPoint.setToolTipText("Enter Pick Up Point");
 
-        jButton5.setBackground(new java.awt.Color(153, 204, 255));
-        jButton5.setForeground(new java.awt.Color(255, 0, 0));
-        jButton5.setText("Search");
-        jButton5.addActionListener(new java.awt.event.ActionListener() {
+        searchRoute.setBackground(new java.awt.Color(153, 204, 255));
+        searchRoute.setForeground(new java.awt.Color(255, 0, 0));
+        searchRoute.setText("Search");
+        searchRoute.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton5ActionPerformed(evt);
+                searchRoute(evt);
             }
         });
 
@@ -141,13 +158,13 @@ public class AdvisorView extends javax.swing.JFrame {
                 .addGap(28, 28, 28)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(routeName, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(51, 51, 51)
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 62, Short.MAX_VALUE)
-                .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
+                .addComponent(PickUpPoint, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(38, 38, 38)
+                .addComponent(searchRoute, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(27, 27, 27))
         );
         jPanel3Layout.setVerticalGroup(
@@ -155,11 +172,12 @@ public class AdvisorView extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jButton5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(searchRoute, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(PickUpPoint, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.Alignment.LEADING))
+                    .addComponent(routeName, javax.swing.GroupLayout.Alignment.LEADING))
                 .addContainerGap())
         );
 
@@ -194,23 +212,210 @@ public class AdvisorView extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void bookTicket(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bookTicket
+        int selectedRow = jTable1.getSelectedRow();
+        if(selectedRow == -1){
+            JOptionPane.showMessageDialog(null, "Please select a row to book");
+        }else{
+             String route = jTable1.getValueAt(selectedRow, 0).toString();
+            String pick = jTable1.getValueAt(selectedRow, 1).toString();
+            String carType = jTable1.getValueAt(selectedRow, 2).toString();
+            String seatNo = jTable1.getValueAt(selectedRow, 3).toString();
+            String access = jTable1.getValueAt(selectedRow, 4).toString();
+            ArrayList<Vector> arr = new ArrayList();
+            for(int i = 0; i < 5; i++){
+               Vector v = new Vector();
+               if(i == 0){
+                   v.add("Route Name");
+                   v.add(route);
+                   arr.add(v);
+               }else if(i == 1){
+                   v.add("Pick Up Point");
+                   v.add(pick);
+                   arr.add(v);
+               }else if(i == 2){
+                   v.add("Car Type");
+                   v.add(carType);
+                   arr.add(v);
+               }
+               else if(i == 3){
+                   v.add("seat No");
+                   v.add(seatNo);
+                   arr.add(v);
+               }else if(i == 4){
+                   v.add("Access");
+                   v.add(access);
+                   arr.add(v);
+               }
+            }
+            this.setVisible(false);
+            new BookTicket(arr).setVisible(true);
+        }
+    }//GEN-LAST:event_bookTicket
 
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton5ActionPerformed
+    private void searchRoute(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchRoute
+        String route = routeName.getText();
+        String pick = PickUpPoint.getText();
+        
+        if(route.equals("") && pick.equals("")){
+            insertRowToTable();
+        }else if(route.equals("") && pick.length() > 0){
+            searchAccordingToPickOnly(pick);
+        }else if(route.length() > 0 && pick.equals("")){
+            searchAccordingToRoute(route);
+        }else if(route.length() > 0 && pick.length() > 0){
+            searchAccordingToBoth(route,pick);
+        }
+    }//GEN-LAST:event_searchRoute
 
+    private void searchAccordingToRoute(String routeName){
+        int count = dtm.getRowCount();
+        while(count-- > 0){
+            dtm.removeRow(count);
+        }
+        ArrayList<Route> routes = DataController.getRoutes();
+        for(Route route : routes){
+            if(route.getRouteName().equals(routeName))
+                for(PickUpPoints p : route.getPickUpPoints()){
+                        for(Vehicle v : p.getVehicles()){
+                            Vector vec = new Vector();
+                            vec.add(route.getRouteName());
+                            vec.add(p.getPickUpPointsName());
+                            vec.add(v.getVehicleType());
+                            vec.add(v.getSeatNo());
+                            vec.add("Disabled");
+                            dtm.addRow(vec);
+                        }
+                }
+        }
+    }
+    
+    private void searchAccordingToBoth(String routeName, String pick){
+        int count = dtm.getRowCount();
+        while(count-- > 0){
+            dtm.removeRow(count);
+        }
+        ArrayList<Route> routes = DataController.getRoutes();
+        for(Route route : routes){
+            if(route.getRouteName().equals(routeName))
+                for(PickUpPoints p : route.getPickUpPoints()){
+                    if(p.getPickUpPointsName().equals(pick))
+                        for(Vehicle v : p.getVehicles()){
+                            Vector vec = new Vector();
+                            vec.add(route.getRouteName());
+                            vec.add(p.getPickUpPointsName());
+                            vec.add(v.getVehicleType());
+                            vec.add(v.getSeatNo());
+                            vec.add("Disabled");
+                            dtm.addRow(vec);
+                        }
+                }
+        }
+    }
+    
+    private void searchAccordingToPickOnly(String pick){
+        int count = dtm.getRowCount();
+        while(count-- > 0){
+            dtm.removeRow(count);
+        }
+        ArrayList<Route> routes = DataController.getRoutes();
+        for(Route route : routes){
+            for(PickUpPoints p : route.getPickUpPoints()){
+                if(p.getPickUpPointsName().equals(pick))
+                    for(Vehicle v : p.getVehicles()){
+                        Vector vec = new Vector();
+                        vec.add(route.getRouteName());
+                        vec.add(p.getPickUpPointsName());
+                        vec.add(v.getVehicleType());
+                        vec.add(v.getSeatNo());
+                        vec.add("Disabled");
+                        dtm.addRow(vec);
+                    }
+            }
+        }
+    }
+    
+    
     private void logout(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logout
        this.setVisible(false);
        new LoginPage().setVisible(true);
     }//GEN-LAST:event_logout
 
+    private void exportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exportActionPerformed
+            JFileChooser fchoose = new JFileChooser();
+           int option = fchoose.showSaveDialog(this);
+           if(option == JFileChooser.APPROVE_OPTION){
+             String name = fchoose.getSelectedFile().getName(); 
+             String path = fchoose.getSelectedFile().getParentFile().getPath();
+             String file = path + "\\" + name + ".xls"; 
+             export(jTable1, new File(file));
+           }
+    }//GEN-LAST:event_exportActionPerformed
+
+    private void view(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_view
+        int selectedRow = jTable1.getSelectedRow();
+        if(selectedRow == -1){
+            JOptionPane.showMessageDialog(null, "Please select a row to view.");
+        }else{
+            String route = jTable1.getValueAt(selectedRow, 0).toString();
+            String pick = jTable1.getValueAt(selectedRow, 1).toString();
+            String carType = jTable1.getValueAt(selectedRow, 2).toString();
+            String seatNo = jTable1.getValueAt(selectedRow, 3).toString();
+            String access = jTable1.getValueAt(selectedRow, 4).toString();
+            ArrayList<Vector> arr = new ArrayList();
+            for(int i = 0; i < 5; i++){
+               Vector v = new Vector();
+               if(i == 0){
+                   v.add("Route Name");
+                   v.add(route);
+                   arr.add(v);
+               }else if(i == 1){
+                   v.add("Pick Up Point");
+                   v.add(pick);
+                   arr.add(v);
+               }else if(i == 2){
+                   v.add("Car Type");
+                   v.add(carType);
+                   arr.add(v);
+               }
+               else if(i == 3){
+                   v.add("seat No");
+                   v.add(seatNo);
+                   arr.add(v);
+               }else if(i == 4){
+                   v.add("Access");
+                   v.add(access);
+                   arr.add(v);
+               }
+            }
+            
+            new ViewDetails(arr).setVisible(true);
+        }
+    }//GEN-LAST:event_view
+
+    
+    public void export(JTable table, File file){
+    try
+    {
+        TableModel m = table.getModel();
+        FileWriter fw = new FileWriter(file);
+      for(int i = 0; i < m.getColumnCount(); i++){
+        fw.write(m.getColumnName(i) + "\t");
+      }
+      fw.write("\n");
+      for(int i=0; i < m.getRowCount(); i++) {
+        for(int j=0; j < m.getColumnCount(); j++) {
+          fw.write(m.getValueAt(i,j).toString()+"\t");
+        }
+        fw.write("\n");
+      }
+      fw.close();
+    }
+    catch(IOException e){ System.out.println(e); }
+  }
+    
     private void insertRowToTable(){
-        
         int count = dtm.getRowCount();
-        
         while(count-- > 0){
             dtm.removeRow(count);
         }
@@ -232,18 +437,18 @@ public class AdvisorView extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
+    private javax.swing.JTextField PickUpPoint;
+    private javax.swing.JButton book;
+    private javax.swing.JButton export;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
     private javax.swing.JButton logout;
+    private javax.swing.JTextField routeName;
+    private javax.swing.JButton searchRoute;
+    private javax.swing.JButton view;
     // End of variables declaration//GEN-END:variables
 }

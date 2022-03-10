@@ -45,7 +45,7 @@ public class ViewDetails extends javax.swing.JFrame {
         jTable1 = new javax.swing.JTable();
         print = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setBounds(new java.awt.Rectangle(170, 120, 0, 0));
 
         jLabel1.setBackground(new java.awt.Color(255, 255, 255));
