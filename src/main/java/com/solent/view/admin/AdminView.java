@@ -21,7 +21,7 @@ import javax.swing.table.TableModel;
 
 /**
  *
- * @author Awanish
+ * @author Mandeep
  */
 public class AdminView extends javax.swing.JFrame {
 

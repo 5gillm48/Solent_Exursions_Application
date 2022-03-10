@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 /**
  *
- * @author Awanish
+ * @author Mandeep
  */
 public class Route {
     private String routeName;

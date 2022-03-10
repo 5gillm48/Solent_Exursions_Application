@@ -12,7 +12,7 @@ import javax.swing.JTable;
 
 /**
  *
- * @author Awanish
+ * @author Mandeep
  */
 public class Invoice extends javax.swing.JFrame {
 

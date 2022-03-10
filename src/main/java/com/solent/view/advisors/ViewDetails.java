@@ -16,7 +16,7 @@ import javax.swing.JOptionPane;
 
 /**
  *
- * @author Awanish
+ * @author Mandeep
  */
 public class ViewDetails extends javax.swing.JFrame {
 

@@ -12,7 +12,7 @@ import javax.swing.JOptionPane;
 
 /**
  *
- * @author Awanish
+ * @author Mandeep
  */
 public class BookTicket extends javax.swing.JFrame {
     javax.swing.table.DefaultTableModel dtm ;

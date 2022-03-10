@@ -22,7 +22,7 @@ import javax.swing.table.TableModel;
 
 /**
  *
- * @author Awanish
+ * @author Mandeep
  */
 public class AdvisorView extends javax.swing.JFrame {
 

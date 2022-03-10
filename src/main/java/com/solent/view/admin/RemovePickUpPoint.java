@@ -6,7 +6,7 @@ package com.solent.view.admin;
 
 /**
  *
- * @author Awanish
+ * @author Mandeep
  */
 public class RemovePickUpPoint extends javax.swing.JFrame {
 

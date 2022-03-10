@@ -12,7 +12,7 @@ import javax.swing.JOptionPane;
 
 /**
  *
- * @author Awanish
+ * @author Mandeep
  */
 public class AddPickUpPoints extends javax.swing.JFrame {
 

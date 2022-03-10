@@ -6,7 +6,7 @@ package com.solent.objects;
 
 /**
  *
- * @author Awanish
+ * @author Mandeep
  */
 public class Vehicle {
     
